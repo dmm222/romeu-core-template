@@ -14,6 +14,11 @@ function requireApiKey(req, res, next) {
 app.get("/", (req, res) => res.send("Romeu Core Template OK ✅"));
 
 app.get("/health", (req, res) => {
+  app.post("/webhook", requireApiKey, (req, res) => {
+  // Por ahora solo “aceptamos y mostramos” el evento
+  console.log("Webhook received:", JSON.stringify(req.body));
+  res.json({ ok: true, received: true });
+});
   res.status(200).json({ ok: true, uptime: process.uptime() });
 });
 
